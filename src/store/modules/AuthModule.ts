@@ -86,7 +86,7 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
         ...credentials,
       },
     };
-    return ApiService.post("login", params)
+    return ApiService.post("login", credentials)
       .then(({ data }) => {
         this.context.commit(Mutations.SET_AUTH, data);
       })
@@ -132,11 +132,9 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
     if (JwtService.getToken()) {
       ApiService.setHeader();
       const params = {
-        params: {
-          api_token: JwtService.getToken(),
-        },
+        api_token: JwtService.getToken(),
       };
-      ApiService.query("verify_token", params as AxiosRequestConfig)
+      ApiService.post("verify_token", params as AxiosRequestConfig)
         .then(({ data }) => {
           this.context.commit(Mutations.SET_AUTH, data);
         })

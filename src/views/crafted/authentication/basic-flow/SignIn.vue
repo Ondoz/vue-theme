@@ -4,6 +4,7 @@
     <!--begin::Form-->
     <Form
       class="form w-100"
+      novalidate="novalidate"
       id="kt_login_signin_form"
       @submit="onSubmitLogin"
       :validation-schema="login"
